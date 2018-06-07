@@ -1,0 +1,68 @@
+﻿@model ValaisTourisme_MVC.ViewModel.ReserveVM
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Search", "Home", FormMethod.Post))
+{
+    <h2>Réservation</h2>
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="Checkin" class="control-label col-md-2">Date d'arrivée</label>
+            <input type="date" id="Checkin" name="Checkin" class="form-control col-md-10" required />
+        </div>
+        <div class="form-group">
+            <label for="Checkout" class="control-label col-md-2">Date de départ</label>
+            <input type="date" id="Checkout" name="Checkout" class="form-control col-md-10" required />
+        </div>
+        <div class="form-group">
+            <label for="Location" class="control-label col-md-2">Location</label>
+            <select name="Location" id="Location" class="form-control col-md-10">
+                @foreach (var location in Model.Locations)
+                {
+                    <option value="@location">@location</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="NbPerson" class="control-label col-md-2">Nombre de Personne : </label>
+            <select name="NbPerson" id="NbPerson" class="form-control col-md-10">
+                @for (var i = 1; i <= 20; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-primary" style="margin-left:30%" />
+        </div>
+    </div>
+
+
+
+
+    // recherche avancée
+    <div>
+        <label for="wifi" style="width: 15%">Wifi </label>
+        @Html.CheckBox("Wifi")
+        <br />
+        <label for="Parking" style="width: 15%">Parking </label>
+        @Html.CheckBox("Parking")
+        <br />
+        <label for="téléphone" style="width: 15%">Téléphone </label>
+        @Html.CheckBox("Téléphone")
+        <br />
+        <label for="télévision" style="width: 15%">Télévision </label>
+        @Html.CheckBox("Télévision")
+        <br />
+        <label for="seche-cheveux" style="width: 15%">Sèche-cheveux </label>
+        @Html.CheckBox("Sèche-cheveux")
+    </div>
+
+}
+
+

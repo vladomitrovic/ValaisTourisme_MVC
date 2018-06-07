@@ -1,0 +1,113 @@
+﻿@model ValaisTourisme_MVC.ViewModel.ReserveVM
+@{
+    ViewBag.Title = "Book";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<h4>Dates</h4>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3"><span class="bold">Check-in :</span> @Convert.ToDateTime(Model.Checkin).ToString("dd/MM/yyyy")</div>
+    <div class="col-md-1"></div>
+    <div class="col-md-3"><span class="bold">Check-out :</span> @Convert.ToDateTime(Model.Checkout).ToString("dd/MM/yyyy")</div>
+    <div class="col-md-4"></div>
+</div>
+<br />
+
+@using (Html.BeginForm("Book", "Book", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="Firstname" class="control-label col-md-2">Firstname</label>
+            <input type="text" id="Firstname" name="Firstname" class="form-control col-md-10" />
+            <label for="Lastname" class="control-label col-md-2">Lastname</label>
+            <input type="text" id="Lastname" name="Lastname" class="form-control col-md-10" />
+        </div>
+    </div>
+    <br />
+    <h4>Hotel details</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Has Wifi</th>
+                <th>Has Parking</th>
+                <th>Phone</th>
+                <th>Email</th>
+            </tr>
+            <tr>
+                <td>@Model.Hotel.Name </td>
+                <td>
+                    @if (@Model.Hotel.HasWifi)
+                    {
+                        <i class="glyphicon glyphicon-ok"></i>
+                    }
+                </td>
+                <td>
+                    @if (@Model.Hotel.HasParking)
+                    {
+                        <i class="glyphicon glyphicon-ok"></i>
+                    }
+                </td>
+                <td>@Model.Hotel.Phone</td>
+                <td>@Model.Hotel.Email</td>
+            </tr>
+        </thead>
+    </table>
+    <br />
+    <h4>Rooms details</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Type</th>
+                <th>Has TV</th>
+                <th>Has Hairdryer</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 0; }
+            @foreach (var room in Model.Rooms)
+            {
+                <tr>
+                    <td>@(i + 1)</td>
+                    @if (room.Type == 1)
+                    {
+
+                        <td>Single room</td>
+                    }
+                    else
+                    {
+                        <td>Double room</td>
+                    }
+                    <td>
+                        @if (room.HasTV)
+                        {
+                            <i class="glyphicon glyphicon-ok"></i>
+                        }
+                </td>
+                <td>
+                    @if (room.HasHairDryer)
+                    {
+                        <i class="glyphicon glyphicon-ok"></i>
+                    }
+            </td>
+            <td>CHF @room.Price</td>
+        </tr>
+        i++;
+    }
+            <tr>
+                <th colspan="4" class="text-right">Total Price</th>
+                <td class="bold">CHF @Model.TotalPrice</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <input type="submit" value="Validate the reservation" class="btn btn-primary" />
+    </div>
+}
