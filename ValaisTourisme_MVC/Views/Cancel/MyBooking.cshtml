@@ -1,0 +1,42 @@
+﻿@model ValaisTourisme_MVC.ViewModel.CancelVM
+@{
+    ViewBag.Title = "My Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MyBooking</h2>
+
+<table class="table table-striped" style="width:100%;">
+    <thead>
+        <tr>
+            <th style="width:20%">Date</th>
+            <th style="width:20%">From</th>
+            <th style="width:20%">To</th>
+            <th style="width:20%">Room</th>
+            <th style="width:20%">Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.Booking)
+        {
+        <tr>
+            @if (Model.Firstname.Equals("admin"))
+            {
+                <td>@book.Firstname @book.Lastname</td>
+            }
+
+            <td><b>@Convert.ToDateTime(book.Date).ToString("dd/MM/yyyy")</b></td>
+            <td>@Convert.ToDateTime(book.CheckIn).ToString("dd/MM/yyyy")</td>
+            <td>@Convert.ToDateTime(book.CheckOut).ToString("dd/MM/yyyy")</td>
+            <td>@book.Room.Number</td>
+            <td>@book.Price</td>
+            <td>
+                @Html.ActionLink("Cancel reservation", "Cancel", "Cancel", new { id = book.IdBooking }, new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+        }
+
+
+    </tbody>
+</table>
+

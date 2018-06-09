@@ -40,7 +40,10 @@ namespace ValaisTourisme_MVC.Controllers
                 return View();
             }
 
-            ReserveVM.Rooms = RoomREST.GetSearch(ReserveVM.Location, ReserveVM.Checkin, ReserveVM.Checkout);
+            ReserveVM.Rooms = RoomREST.GetSearch(ReserveVM.Location, ReserveVM.Checkin, ReserveVM.Checkout)
+                .Where(r => r.HasTV == ReserveVM.HasTV &&  r.HasHairDryer == ReserveVM.HasHairDryer && r.Price>ReserveVM.MinPrice && r.Price<ReserveVM.MaxPrice
+                && r.Hotel.HasParking==ReserveVM.HasParking && r.Hotel.HasWifi==ReserveVM.HasWifi).ToList();
+
             ReserveVM.Hotels = ReserveVM.Rooms.Select(x => x.Hotel).Distinct().ToList();
             Session["ReserveVM"] = ReserveVM;
             return RedirectToAction("Index", "Book");

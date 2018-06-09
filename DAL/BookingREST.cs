@@ -15,6 +15,16 @@ namespace DAL
         readonly static string baseUri = "http://localhost:57527/api/Booking/";
 
 
+        public static List<Booking> GetBooking(String firstname, String lastname)
+        {
+            string uri = baseUri + firstname+"/"+lastname;
+            using (HttpClient httpClient = new HttpClient())
+            {
+                Task<String> response = httpClient.GetStringAsync(uri);
+                return JsonConvert.DeserializeObject<List<Booking>>(response.Result);
+            }
+        }
+
         public static bool PostNewBooking(Booking b)
         {
             string uri = baseUri;
