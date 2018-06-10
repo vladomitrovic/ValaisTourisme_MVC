@@ -14,6 +14,7 @@ namespace ValaisTourisme_MVC.ViewModel
         public string Firstname { get; set; }
         [Required]
         public string Lastname { get; set; }
+        public List<DateTime> Dates { get; set; }
         public List<Booking> Booking { get; set; }
         public List<Hotel> Hotel { get; set; }
         public List<Room> Rooms { get; set; }

@@ -32,6 +32,7 @@ namespace ValaisTourisme_MVC.Controllers
                     return View();
                 }
 
+                cancelVM.Dates= booking.Select(x => x.Date).Distinct().ToList();
                 cancelVM.Booking = booking;
 
                 Session["CancelVM"] = cancelVM;
@@ -48,6 +49,7 @@ namespace ValaisTourisme_MVC.Controllers
             }
 
             CancelVM cancelVM = (CancelVM)Session["cancelVM"];
+            cancelVM.Booking = BookingManager.GetBooking(cancelVM.Firstname, cancelVM.Lastname);
             return View(cancelVM);
         }
 

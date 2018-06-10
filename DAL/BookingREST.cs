@@ -41,19 +41,23 @@ namespace DAL
             }
         }
 
+
         public static bool DeleteBooking(int idBook)
         {
-            string uri = baseUri;
+            string uri = baseUri+"DeleteBooking/"+idBook;
             using (HttpClient httpClient = new HttpClient())
             {
-                string pro = JsonConvert.SerializeObject(idBook, new JsonSerializerSettings()
+
+                httpClient.BaseAddress = new Uri("http://localhost:57527/");
+                var response = httpClient.DeleteAsync("api/booking/"+idBook.ToString()).Result;
+
+                if (response.IsSuccessStatusCode)
                 {
-                    PreserveReferencesHandling = PreserveReferencesHandling.Objects,
-                    Formatting = Formatting.Indented
-                });
-                StringContent frame = new StringContent(pro, Encoding.UTF8, "Application/json");
-                Task<HttpResponseMessage> response = httpClient.PostAsync(uri, frame);
-                return response.Result.IsSuccessStatusCode;
+                    return true;
+                }
+                else
+                    return false;
+
             }
         }
 
