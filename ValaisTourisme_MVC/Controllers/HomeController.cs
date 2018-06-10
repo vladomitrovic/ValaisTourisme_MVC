@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DAL;
+using BLL;
 
 namespace ValaisTourisme_MVC.Controllers
 {
@@ -19,7 +19,7 @@ namespace ValaisTourisme_MVC.Controllers
         {
         
             ReserveVM ReserveVM = new ReserveVM();
-            ReserveVM.Locations = HotelREST.GetAll().Select(x => x.Location).Distinct().ToList();
+            ReserveVM.Locations = HotelManager.GetAll().Select(x => x.Location).Distinct().ToList();
             ViewBag.Message = "Choose your dates";
 
             return View(ReserveVM);
@@ -40,9 +40,10 @@ namespace ValaisTourisme_MVC.Controllers
                 return View();
             }
 
-            ReserveVM.Rooms = RoomREST.GetSearch(ReserveVM.Location, ReserveVM.Checkin, ReserveVM.Checkout)
-                .Where(r => r.HasTV == ReserveVM.HasTV &&  r.HasHairDryer == ReserveVM.HasHairDryer && r.Price>ReserveVM.MinPrice && r.Price<ReserveVM.MaxPrice
-                && r.Hotel.HasParking==ReserveVM.HasParking && r.Hotel.HasWifi==ReserveVM.HasWifi).ToList();
+            ReserveVM.Rooms = RoomManager.GetSearch(ReserveVM.Location, ReserveVM.Checkin, ReserveVM.Checkout, ReserveVM.HasHairDryer, ReserveVM.HasTV,
+                ReserveVM.HasParking, ReserveVM.HasWifi, ReserveVM.MinPrice, ReserveVM.MaxPrice, ReserveVM.MinCategory, ReserveVM.MaxCategory);
+                
+   
 
             ReserveVM.Hotels = ReserveVM.Rooms.Select(x => x.Hotel).Distinct().ToList();
             Session["ReserveVM"] = ReserveVM;

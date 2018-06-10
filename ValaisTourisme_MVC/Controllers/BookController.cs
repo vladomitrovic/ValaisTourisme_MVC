@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DTO;
-using DAL;
+using BLL;
 
 namespace ValaisTourisme_MVC.Controllers
 {
@@ -31,7 +31,7 @@ namespace ValaisTourisme_MVC.Controllers
 
             ReserveVM ReserveVMsession = (ReserveVM)Session["ReserveVM"];
             ReserveVMsession.days = ReserveVMsession.Checkout.Date.Subtract(ReserveVMsession.Checkin).Days;
-            ReserveVMsession.Hotel = HotelREST.Getid(id);
+            ReserveVMsession.Hotel = HotelManager.Getid(id);
             List<Room> tempRooms = ReserveVMsession.Rooms;
             ReserveVMsession.Rooms = new List<Room>();
             int nbPerson = ReserveVMsession.nbPerson;
@@ -113,7 +113,7 @@ namespace ValaisTourisme_MVC.Controllers
                 {
                     b.Room = r;
                     b.Price = r.Price;
-                    BookingREST.PostNewBooking(b);
+                    BookingManager.PostNewBooking(b);
                 }
                 
                 return RedirectToAction("Confirmation", "Book");

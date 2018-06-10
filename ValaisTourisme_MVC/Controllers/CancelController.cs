@@ -1,4 +1,4 @@
-﻿using DAL;
+﻿using BLL;
 using DTO;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace ValaisTourisme_MVC.Controllers
 
             if (ModelState.IsValid)
             {
-                List<Booking> booking = BookingREST.GetBooking(cancelVM.Firstname, cancelVM.Lastname);
+                List<Booking> booking = BookingManager.GetBooking(cancelVM.Firstname, cancelVM.Lastname);
 
                 if (booking.Count == 0)
                 {
@@ -58,7 +58,7 @@ namespace ValaisTourisme_MVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            //Delete query !!!!!!!!!!!!
+            BookingManager.DeleteBooking(id);
 
             return RedirectToAction("MyBooking", "Cancel");
         }
