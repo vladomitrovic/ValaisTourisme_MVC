@@ -32,7 +32,7 @@ namespace ValaisTourisme_MVC.Controllers
             ReserveVM ReserveVMsession = (ReserveVM)Session["ReserveVM"];
             ReserveVMsession.days = ReserveVMsession.Checkout.Date.Subtract(ReserveVMsession.Checkin).Days;
             ReserveVMsession.Hotel = HotelManager.Getid(id);
-            List<Room> tempRooms = ReserveVMsession.Rooms;
+            List<Room> tempRooms = ReserveVMsession.Rooms.Where(r => r.IdHotel == id).ToList();
             ReserveVMsession.Rooms = new List<Room>();
             int nbPerson = ReserveVMsession.nbPerson;
 
@@ -40,9 +40,17 @@ namespace ValaisTourisme_MVC.Controllers
 
             while (nbPerson > 0)
             {
-                nbPerson -= tempRooms.ElementAt(0).Type;
-                ReserveVMsession.Rooms.Add(tempRooms.ElementAt(0));
-                tempRooms.Remove(tempRooms.ElementAt(0));
+                Room room = tempRooms.Where(r => r.Type == 2).FirstOrDefault();
+
+                if (room == null)
+                    room = tempRooms.FirstOrDefault();
+
+                if (room == null)
+                    break;
+
+                ReserveVMsession.Rooms.Add(room);
+                nbPerson -= room.Type;
+                tempRooms.Remove(room);
             }
 
             if (nbPerson == -1)
