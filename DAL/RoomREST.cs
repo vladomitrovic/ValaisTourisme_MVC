@@ -13,6 +13,7 @@ namespace DAL
     {
         readonly static string baseUri = "http://localhost:57527/api/Room/";
 
+        //Get room by id
         public static Room Getid(int id)
         {
             string uri = baseUri + id;
@@ -23,7 +24,7 @@ namespace DAL
             }
         }
 
-
+        //Search room by location and dates
         public static List<Room> GetSearch(String city, DateTime cin, DateTime cout)
         {
             string uri = baseUri + city+"/"+cin.ToString("yyyy-MM-dd")+"/"+cout.ToString("yyyy-MM-dd");

@@ -10,7 +10,7 @@
     if (@Model.Hotels.Count == 0)
     {
         <div class="alert alert-warning">
-            No hotel avalaible in @Model.Location for your search criteria
+            No hotel avalaible in @Model.Location for your search criteria.
         </div>
     }
 }
@@ -26,6 +26,7 @@
             <th style="width:20%">Location</th>
             <th style="width:20%">Category</th>
             <th style="width:20%">Contact</th>
+            <th >Avalaible rooms</th>
         </tr>
     </thead>
     <tbody>
@@ -45,9 +46,12 @@
                     <p>@hotel.Phone</p>
                     <p>@hotel.Email</p>
                     <p>@hotel.Website</p>
+                     </td>
+                <td>
+                    <p><b>@Model.Rooms.Where(r => r.IdHotel == hotel.IdHotel).ToList().Count()</b></p>
                 </td>
                 <td>
-                    <p>@Html.ActionLink("Avalaible rooms", "Details", new { id = hotel.IdHotel }, new { @class = "btn btn-primary" })</p>
+                    <p>@Html.ActionLink("Open", "Details", new { id = hotel.IdHotel }, new { @class = "btn btn-primary" })</p>
                 </td>
             </tr>
         }

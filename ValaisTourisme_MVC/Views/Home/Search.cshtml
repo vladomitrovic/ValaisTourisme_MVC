@@ -7,15 +7,15 @@
 
 @using (Html.BeginForm("Search", "Home", FormMethod.Post))
 {
-    <h2>Réservation</h2>
+    <h2>Search</h2>
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            <label for="Checkin" class="control-label col-md-2">Date d'arrivée</label>
+            <label for="Checkin" class="control-label col-md-2">Check-in</label>
             <input type="date" id="Checkin" name="Checkin" class="form-control col-md-10" required />
         </div>
         <div class="form-group">
-            <label for="Checkout" class="control-label col-md-2">Date de départ</label>
+            <label for="Checkout" class="control-label col-md-2">Check-out</label>
             <input type="date" id="Checkout" name="Checkout" class="form-control col-md-10" required />
         </div>
         <div class="form-group">
@@ -29,7 +29,7 @@
         </div>
 
         <div class="form-group">
-            <label for="NbPerson" class="control-label col-md-2">Nombre de Personne : </label>
+            <label for="NbPerson" class="control-label col-md-2">Number of person : </label>
             <select name="NbPerson" id="NbPerson" class="form-control col-md-10">
                 @for (var i = 1; i <= 20; i++)
                 {
@@ -43,7 +43,7 @@
     </div>
 
     <div class="form-group" align="left">
-        <input type="button" value="Advenced Search" onclick="showAdvenced()" class="btn btn-primary" style="margin-left:30%" />
+        <input type="button" value="More criteria" onclick="showAdvenced()" class="btn btn-primary" style="margin-left:30%" />
     </div>
 
 

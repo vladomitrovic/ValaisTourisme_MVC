@@ -14,6 +14,7 @@ namespace DAL
 
         readonly static string baseUri = "http://localhost:57527/api/Hotel/";
 
+        //Get all hotels
         public static List<Hotel> GetAll()
         {
             string uri = baseUri +"all";
@@ -24,7 +25,7 @@ namespace DAL
             }
         }
 
-
+        //Get hotel by id
         public static Hotel Getid(int id)
         {
             string uri = baseUri +id;

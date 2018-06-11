@@ -14,7 +14,7 @@ namespace DAL
     {
         readonly static string baseUri = "http://localhost:57527/api/Booking/";
 
-
+        //Get bookings by firstname and lastname
         public static List<Booking> GetBooking(String firstname, String lastname)
         {
             string uri = baseUri + firstname+"/"+lastname;
@@ -25,6 +25,7 @@ namespace DAL
             }
         }
 
+        //Book a room
         public static bool PostNewBooking(Booking b)
         {
             string uri = baseUri;

@@ -9,7 +9,7 @@ namespace BLL
 {
     public class RoomManager
     {
-
+        //Sort the rooms with advanced search
         public static List<Room> GetSearch(String city, DateTime cin, DateTime cout, bool hairDryer, bool tv, bool parking, bool wifi, decimal minPrice, decimal maxPrice, int minCat, int maxCat)
         {
 
@@ -30,6 +30,7 @@ namespace BLL
             return rooms;
         }
 
+        //No changes
         public static Room Getid(int id)
         {
             return DAL.RoomREST.Getid(id);
